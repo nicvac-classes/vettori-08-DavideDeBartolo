@@ -1,0 +1,63 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    int N;
+    cout << "Inserisci il numero di atleti: ";
+    cin >> N;
+
+    vector<string> nomi(N);
+    vector<string> nazionali(N);
+    vector<double> tempi(N);
+
+    // Input dei dati
+    for (int i = 0; i < N; ++i) {
+        cout << "Inserisci il nome dell'atleta " << (i + 1) << ": ";
+        cin >> nomi[i];
+        cout << "Inserisci la nazione dell'atleta " << (i + 1) << ": ";
+        cin >> nazionali[i];
+        cout << "Inserisci il tempo dell'atleta " << (i + 1) << ": ";
+        cin >> tempi[i];
+    }
+
+    // Calcolo del tempo più basso, più alto e della media
+    double minTempo = numeric_limits<double>::max();
+    double maxTempo = numeric_limits<double>::min();
+    double sommaTempi = 0.0;
+
+    for (double tempo : tempi) {
+        if (tempo < minTempo) minTempo = tempo;
+        if (tempo > maxTempo) maxTempo = tempo;
+        sommaTempi += tempo;
+    }
+
+    double mediaTempo = sommaTempi / N;
+
+    // Visualizzazione dei risultati
+    cout << "\nTempo più basso: " << minTempo << endl;
+    cout << "Tempo più alto: " << maxTempo << endl;
+    cout << "Media dei tempi: " << mediaTempo << endl;
+
+    cout << "\nAtleti con tempo minore o uguale alla media:" << endl;
+    for (int i = 0; i < N; ++i) {
+        if (tempi[i] <= mediaTempo) {
+            cout << nomi[i] << " - " << nazionali[i] << ": " << tempi[i] << endl;
+        }
+    }
+
+    // Richiesta di un tempo T all'utente
+    double T;
+    cout << "\nInserisci un tempo T: ";
+    cin >> T;
+
+    // Visualizzazione degli atleti con tempo minore o uguale a T
+    cout << "\nAtleti con tempo minore o uguale a T:" << endl;
+    for (int i = 0; i < N; ++i) {
+        if (tempi[i] <= T) {
+            cout << nomi[i] << " - " << nazionali[i] << ": " << tempi[i] << endl;
+        }
+    }
+
+    return 0;
+}
